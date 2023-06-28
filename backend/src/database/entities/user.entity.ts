@@ -12,6 +12,7 @@ import {
 import { IsGovSgEmail } from '~shared/decorators/is-gov-sg-email'
 import { WishlistItems } from './wishlist.items.entity'
 import { Listings } from './listings.entity'
+import { TradeRequests } from './trade.requests.entity'
 
 @Entity({ name: 'users' })
 export class User {
@@ -27,6 +28,26 @@ export class User {
     },
   )
   wishlistItems?: WishlistItems[]
+
+  @OneToMany(
+    () => TradeRequests,
+    (tradeRequests: TradeRequests) => tradeRequests.requesterId,
+    {
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
+    },
+  )
+  tradeRequests?: TradeRequests[]
+
+  @OneToMany(
+    () => Listings,
+    (listings: Listings) => listings.ownerID,
+    {
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
+    },
+  )
+  listings?: Listings[]
 
   @Column('varchar', { length: 255 })
   first_last_name: string

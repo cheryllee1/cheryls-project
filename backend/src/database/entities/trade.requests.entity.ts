@@ -29,8 +29,8 @@ export class TradeRequests extends BaseEntity {
     id: number
 
     @ManyToOne(
-        () => TradeRequests,
-        (tradeRequests: TradeRequests) =>
+        () => Listings,
+        (listings: Listings) =>
             Listings.tradeRequests,
         {
             onUpdate: 'CASCADE',
