@@ -37,7 +37,7 @@ export class TradeRequests extends BaseEntity {
             nullable: false,
         },
     )
-    Listings?: Listings
+    listing: User
 
     @ManyToOne(
         () => User,
@@ -49,7 +49,7 @@ export class TradeRequests extends BaseEntity {
             nullable: false,
         },
     )
-    tradeRequests?: TradeRequests
+    requestor: User
 
 
     @Column('int4')
@@ -68,16 +68,14 @@ export class TradeRequests extends BaseEntity {
     @Index()
     status: Status
 
-    @Column('varchar')
-    photo: string
+    @Column('jsonb')
+    photos: string[]
 
     @CreateDateColumn({ type: 'timestamptz' })
     createdAt: Date
 
     @UpdateDateColumn({ type: 'timestamptz' })
     updatedAt: Date
-    static Listings: any
-    listing: any
-    listings: any
+
 
 }

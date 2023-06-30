@@ -67,8 +67,8 @@ export class User {
   @Column('varchar', { length: 255 })
   social_media: string
 
-  @Column('varchar')
-  photo: string
+  @Column('jsonb')
+  photos: string[]
 
   @CreateDateColumn({ type: 'timestamptz' })
   createdAt: Date

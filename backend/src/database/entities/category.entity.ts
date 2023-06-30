@@ -15,19 +15,23 @@ export class Category extends BaseEntity {
   @Column('varchar')
   categoryName: string
 
+  @Column('jsonb')
+  photos: string[]
+
+  @OneToMany(
+    () => Listings,
+    (listing: Listings) => listing.category,
+    {
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
+    },
+  )
+  listings: Listings[]
+
 }
-@Column('int4')
-Id: number
-@Index()
-@ManyToOne(
-  () => Category,
-  (category: Category) => Listings.Category,
-  {
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
-    nullable: false,
-  }
-)
-Listings ?: Category
+
+
+
+
 
 

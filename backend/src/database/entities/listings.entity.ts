@@ -42,7 +42,7 @@ export class Listings extends BaseEntity {
   @Index()
   @ManyToOne(
     () => Listings,
-    (user: User) => User.Listings,
+    (user: User) => user.listings,
     {
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE',
@@ -63,11 +63,11 @@ export class Listings extends BaseEntity {
       nullable: false,
     },
   )
-  category?: Category
+  category: Category
 
   @OneToMany(
     () => TradeRequests,
-    (tradeRequests: TradeRequests) => tradeRequests.listings,
+    (tradeRequests: TradeRequests) => tradeRequests.listing,
     {
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE',
@@ -85,14 +85,11 @@ export class Listings extends BaseEntity {
   @Column('varchar')
   description: string
 
-  @Column('varchar')
-  photos: string
+  @Column('jsonb')
+  photos: string[]
 
   @Column('enum')
   condition: Condition
-
-  @Column('varchar')
-  photo: string
 
   @Column('enum')
   status: Status
@@ -106,10 +103,10 @@ export class Listings extends BaseEntity {
   @DeleteDateColumn({ type: 'timestamptz' })
   deletedAt: Date | null
   itemListings: any
-  static user: any
-  wishlistItems: any
+  User: any
+  WishlistItems: any
+  TradeRequests: any
+  Category: any
   static tradeRequests: any
-  static category: any
-  static Category: any
 }
 
