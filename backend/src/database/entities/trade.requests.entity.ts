@@ -15,7 +15,6 @@ import { IsGovSgEmail } from '~shared/decorators/is-gov-sg-email'
 import { User } from './user.entity'
 import { Listings } from './listings.entity'
 import { WishlistItems } from './wishlist.items.entity'
-import { listingWishlist } from './listing.wishlist.entity'
 import { Category } from './category.entity'
 
 export enum Status {
@@ -38,7 +37,20 @@ export class TradeRequests extends BaseEntity {
             nullable: false,
         },
     )
+    Listings?: Listings
+
+    @ManyToOne(
+        () => User,
+        (user: User) =>
+            user.tradeRequests,
+        {
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE',
+            nullable: false,
+        },
+    )
     tradeRequests?: TradeRequests
+
 
     @Column('int4')
     @Index()
@@ -56,10 +68,16 @@ export class TradeRequests extends BaseEntity {
     @Index()
     status: Status
 
+    @Column('varchar')
+    photo: string
+
     @CreateDateColumn({ type: 'timestamptz' })
     createdAt: Date
 
     @UpdateDateColumn({ type: 'timestamptz' })
     updatedAt: Date
+    static Listings: any
+    listing: any
+    listings: any
 
 }

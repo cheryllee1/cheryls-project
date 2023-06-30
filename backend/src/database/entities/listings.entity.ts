@@ -42,43 +42,57 @@ export class Listings extends BaseEntity {
   @Index()
   @ManyToOne(
     () => Listings,
-    (listings: Listings) => Listings.user,
+    (user: User) => User.Listings,
     {
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE',
       nullable: false,
     },
   )
-  listings: Listings
+  ownerId: User
 
   @Column('int4')
   categoryId: number
   @Index()
   @ManyToOne(
-    () => Listings,
-    (category: Listings) => category.listings
-      {
+    () => Category,
+    (category: Category) => category.listings,
+    {
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE',
       nullable: false,
     },
   )
-  category?: Listings
+  category?: Category
 
-  // duration in minutes
+  @OneToMany(
+    () => TradeRequests,
+    (tradeRequests: TradeRequests) => tradeRequests.listings,
+    {
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
+    },
+  )
+  tradeRequests?: TradeRequests[]
+
+
   @Column('int4')
   ownerID: number
 
-  // duration in minutes
   @Column('varchar')
   title: string
 
-  // duration in minutes
   @Column('varchar')
   description: string
 
+  @Column('varchar')
+  photos: string
+
   @Column('enum')
   condition: Condition
+
+  @Column('varchar')
+  photo: string
 
   @Column('enum')
   status: Status
@@ -95,5 +109,7 @@ export class Listings extends BaseEntity {
   static user: any
   wishlistItems: any
   static tradeRequests: any
+  static category: any
+  static Category: any
 }
 

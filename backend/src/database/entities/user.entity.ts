@@ -13,6 +13,7 @@ import { IsGovSgEmail } from '~shared/decorators/is-gov-sg-email'
 import { WishlistItems } from './wishlist.items.entity'
 import { Listings } from './listings.entity'
 import { TradeRequests } from './trade.requests.entity'
+import { Category } from './category.entity'
 
 @Entity({ name: 'users' })
 export class User {
@@ -41,7 +42,7 @@ export class User {
 
   @OneToMany(
     () => Listings,
-    (listings: Listings) => listings.ownerID,
+    (listings: Listings) => listings.ownerId,
     {
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE',
@@ -66,6 +67,9 @@ export class User {
   @Column('varchar', { length: 255 })
   social_media: string
 
+  @Column('varchar')
+  photo: string
+
   @CreateDateColumn({ type: 'timestamptz' })
   createdAt: Date
 
@@ -74,4 +78,5 @@ export class User {
 
   @DeleteDateColumn({ type: 'timestamptz' })
   deletedAt: Date | null
+  static Listings: any
 }

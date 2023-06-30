@@ -1,10 +1,10 @@
-import { Column, Entity, ManyToMany, OneToMany, PrimaryColumn } from 'typeorm'
+import { BaseEntity, Column, Entity, ManyToMany, OneToMany, PrimaryColumn } from 'typeorm'
 
 import { IsGovSgEmail } from '~shared/decorators/is-gov-sg-email'
 import { User } from './user.entity'
 import { Listings } from './listings.entity'
 import { WishlistItems } from './wishlist.items.entity'
-import { listingWishlist } from './listing.wishlist.entity'
+import { TradeRequests } from './trade.requests.entity'
 
 
 @Entity({ name: 'category' })
@@ -12,7 +12,22 @@ export class Category extends BaseEntity {
   @PrimaryColumn()
   id: number
 
-  @Column('varchar', { length: 255 })
-  name: string
+  @Column('varchar')
+  categoryName: string
 
 }
+@Column('int4')
+Id: number
+@Index()
+@ManyToOne(
+  () => Category,
+  (category: Category) => Listings.Category,
+  {
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+    nullable: false,
+  }
+)
+Listings ?: Category
+
+

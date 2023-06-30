@@ -34,6 +34,9 @@ export class WishlistItems {
     @Column('varchar', { length: 255 })
     description: string
 
+    @Column('varchar')
+    photo: string
+
     @CreateDateColumn({ type: 'timestamptz' })
     createdAt: Date
 
