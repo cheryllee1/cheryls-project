@@ -38,7 +38,7 @@ export class Listings extends BaseEntity {
   id: number
 
   @Column('int4')
-  Id: number
+  OwnerId: number
   @Index()
   @ManyToOne(
     () => Listings,

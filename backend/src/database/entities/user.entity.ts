@@ -65,7 +65,7 @@ export class User {
   phoneNumber: string | null
 
   @Column('varchar', { length: 255 })
-  social_media: string
+  socialMedia: string
 
   @Column('jsonb')
   photos: string[]
