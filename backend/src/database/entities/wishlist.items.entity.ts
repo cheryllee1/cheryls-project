@@ -6,6 +6,7 @@ import {
     Index,
     ManyToOne,
     PrimaryGeneratedColumn,
+    OneToOne,
     UpdateDateColumn,
 } from 'typeorm'
 
@@ -13,10 +14,21 @@ import { IsGovSgEmail } from '~shared/decorators/is-gov-sg-email'
 import { User } from './user.entity'
 import { Listings } from './listings.entity'
 
+
 @Entity({ name: 'wishlistItems' })
 export class WishlistItems {
     @PrimaryGeneratedColumn()
     id: number
+
+    @OneToOne(
+        () => Listings,
+        (listings: Listings) => listings.wishlistItems,
+        {
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE',
+        },
+    )
+    listings?: Listings
 
     @Column('int4')
     userId: number

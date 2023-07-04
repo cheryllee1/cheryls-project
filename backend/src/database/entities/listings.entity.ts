@@ -1,12 +1,14 @@
 import {
   BaseEntity,
   Column,
+  Condition,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
   Index,
   ManyToOne,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   Unique,
   UpdateDateColumn,
@@ -16,20 +18,8 @@ import { IsGovSgEmail } from '~shared/decorators/is-gov-sg-email'
 import { User } from './user.entity'
 import { WishlistItems } from './wishlist.items.entity'
 import { Category } from './category.entity'
-import { TradeRequests } from './trade.requests.entity'
-
-export enum Condition {
-  BrandNew = 'BrandNew',
-  LikeNew = 'LikeNew',
-  SlightlyUsed = 'SlightlyUsed',
-  WellUsed = 'WellUsed',
-}
-
-export enum Status {
-  Available = 'Available',
-  Reserved = 'Reserved',
-  Traded = 'Traded',
-}
+import { Status, TradeRequests } from './trade.requests.entity'
+import { wishlistItems } from 'public/wishlist/wishlist.service'
 
 @Entity({ name: 'listing' })
 @Unique(['listing'])
@@ -75,6 +65,15 @@ export class Listings extends BaseEntity {
   )
   tradeRequests?: TradeRequests[]
 
+  @OneToOne(
+    () => WishlistItems,
+    (wishlistItems: WishlistItems) => wishlistItems.listings
+      {
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
+    },
+  )
+  wishlistItems?: wishlistItems
 
   @Column('int4')
   ownerID: number
@@ -86,7 +85,7 @@ export class Listings extends BaseEntity {
   description: string
 
   @Column('jsonb')
-  photos: string[]
+  listingPhoto: string[]
 
   @Column('enum')
   condition: Condition
