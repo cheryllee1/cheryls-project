@@ -16,4 +16,18 @@ module.exports = {
       extends: ['opengovsg/javascript', 'opengovsg/react'],
     },
   ],
-}
+  rules: {
+    'prettier/prettier': 'off',
+  },
+  settings: {
+    'import/resolver': {
+      typescript: {
+        project: [
+          'backend/tsconfig.json',
+          'shared/tsconfig.json',
+          'frontend/tsconfig.json',
+        ],
+      },
+    },
+  },
+};

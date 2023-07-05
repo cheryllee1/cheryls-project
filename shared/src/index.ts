@@ -1,1 +1,1 @@
-export const NAME = 'ts-template'
+export const NAME = 'ts-template';

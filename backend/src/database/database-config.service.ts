@@ -1,9 +1,9 @@
-import { Injectable } from '@nestjs/common'
-import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm'
-import { Client } from 'pg'
+import { Injectable } from '@nestjs/common';
+import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
+import { Client } from 'pg';
 
-import { ConfigService } from '../config/config.service'
-import { base } from './ormconfig'
+import { ConfigService } from '../config/config.service';
+import { base } from './ormconfig';
 
 @Injectable()
 export class DatabaseConfigService implements TypeOrmOptionsFactory {
@@ -19,23 +19,23 @@ export class DatabaseConfigService implements TypeOrmOptionsFactory {
       ...(this.config.get('database.ca')
         ? { ssl: { ca: this.config.get('database.ca') } }
         : {}),
-    })
-    await client.connect()
+    });
+    await client.connect();
 
     const res = await client.query(
       'SELECT 1 FROM pg_database WHERE datname = $1;',
-      [this.config.get('database.name')],
-    )
+      [this.config.get('database.name')]
+    );
     if (res.rowCount === 0) {
-      await client.query(`CREATE DATABASE ${this.config.get('database.name')}`)
+      await client.query(`CREATE DATABASE ${this.config.get('database.name')}`);
     }
-    await client.end()
+    await client.end();
   }
 
   async createTypeOrmOptions(): Promise<TypeOrmModuleOptions> {
     // Create database, remove in production
-    await this.createDatabase()
+    await this.createDatabase();
 
-    return base
+    return base;
   }
 }

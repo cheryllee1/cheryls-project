@@ -1,57 +1,57 @@
-import { addFormats, Schema } from 'convict'
+import { addFormats, Schema } from 'convict';
 
 export interface ConfigSchema {
-  port: number
-  environment: 'development' | 'staging' | 'production' | 'test'
-  awsRegion: string
+  port: number;
+  environment: 'development' | 'staging' | 'production' | 'test';
+  awsRegion: string;
   database: {
-    host: string
-    username: string
-    password: string
-    port: number
-    name: string
-    logging: boolean
-    minPool: number
-    maxPool: number
-    ca: string
-  }
+    host: string;
+    username: string;
+    password: string;
+    port: number;
+    name: string;
+    logging: boolean;
+    minPool: number;
+    maxPool: number;
+    ca: string;
+  };
   session: {
-    secret: string
-    name: string
+    secret: string;
+    name: string;
     cookie: {
-      maxAge: number
-    }
-  }
+      maxAge: number;
+    };
+  };
   otp: {
-    expiry: number
-    secret: string
-    numValidPastWindows: number
-    numValidFutureWindows: number
-    sender_name: string
-    email: string
-  }
-  postmangovsgApiKey: string
+    expiry: number;
+    secret: string;
+    numValidPastWindows: number;
+    numValidFutureWindows: number;
+    sender_name: string;
+    email: string;
+  };
+  postmangovsgApiKey: string;
   mailer: {
     auth: {
-      type: 'login'
-      user: string
-      pass: string
-    }
-    host: string
-    port: number
-  }
-  health: { heapSizeThreshold: number; rssThreshold: number }
+      type: 'login';
+      user: string;
+      pass: string;
+    };
+    host: string;
+    port: number;
+  };
+  health: { heapSizeThreshold: number; rssThreshold: number };
 }
 
 addFormats({
   'required-string': {
     validate: (val?: string): void => {
       if (val == undefined || val === '') {
-        throw new Error('Required value cannot be empty')
+        throw new Error('Required value cannot be empty');
       }
     },
   },
-})
+});
 
 export const schema: Schema<ConfigSchema> = {
   port: {
@@ -237,4 +237,4 @@ export const schema: Schema<ConfigSchema> = {
       default: 3000 * 1024 * 1024, // 3000MB
     },
   },
-}
+};

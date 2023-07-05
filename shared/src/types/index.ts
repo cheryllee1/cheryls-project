@@ -1,2 +1,2 @@
-export * from './api/listings.dto'
-export * from './base/listings.base'
+export * from './api/listings.dto';
+export * from './base/listings.base';

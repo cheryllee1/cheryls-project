@@ -1,29 +1,45 @@
-import { Get, Param } from "@nestjs/common";
-import { Category } from "database/entities/category.entity";
-import { find } from "rxjs";
-import { CategoryService } from "./category.service";
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+} from '@nestjs/common';
 
-export class CategoryController {
-    constructor(
-        private categoryService: CategoryService,
-    ) { }
+// import { CreateListingReq } from '~shared/types/api';
+import { ListingsService } from './listings.service';
 
-    @Get(':categoryId')
-    async find(
-        @Param('categoryId', ParseIntPipe) categoryId: number,
-    ): Promise<CategoryRes | null> {
-        const category = await this.categoryService.find(categoryId)
-        if (!category) {
-            throw new CategoryNotFoundError()
-        }
+@Controller('listing')
+export class ListingsController {
+  constructor(private listingService: ListingsService) {}
 
-        return Category
+  @Get(':listingId')
+  async find(@Param('listingId', ParseIntPipe) listingId: number) {
+    const listing = await this.listingService.find(listingId);
+    if (!listing) {
+      throw new Error('Listing not found');
     }
 
-    @Get()
-    findAll(): Promise<CategoryRes>[]> {
-        return this.categoryService.findAll()
-    }
+    return listing;
+  }
 
+  @Get()
+  findAll() {
+    return this.listingService.findAll();
+  }
+
+  // Can you help me enable global validation pipe so that it will actually validate the DTO, i cant figure out where is the validation pipe set
+  // looks like logged validation pipe but no idea why it is not running validation and transformation
+
+  @Post('new/create')
+  // createListing(@Body() listing: CreateListingReq) {
+  createListing(@Body() listing: any) {
+    return this.listingService.createListing(
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      listing as unknown as CreateListingReq
+    );
+  }
 }
-

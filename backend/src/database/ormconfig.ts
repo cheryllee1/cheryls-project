@@ -1,12 +1,12 @@
-import 'reflect-metadata'
+import 'reflect-metadata';
 
-import convict from 'convict'
-import { join } from 'path'
-import { DataSource, DataSourceOptions } from 'typeorm'
+import convict from 'convict';
+import { join } from 'path';
+import { DataSource, DataSourceOptions } from 'typeorm';
 
-import { schema } from '../config/config.schema'
+import { schema } from '../config/config.schema';
 
-const config = convict(schema)
+const config = convict(schema);
 
 export const base = {
   type: 'postgres',
@@ -30,7 +30,7 @@ export const base = {
     min: config.get('database.minPool'),
     max: config.get('database.maxPool'),
   },
-} as DataSourceOptions
+} as DataSourceOptions;
 
-const dataSource = new DataSource(base)
-export default dataSource
+const dataSource = new DataSource(base);
+export default dataSource;

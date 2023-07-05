@@ -1,1 +1,1 @@
-export * from './listings.base'
+export * from './listings.base';

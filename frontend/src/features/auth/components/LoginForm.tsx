@@ -10,7 +10,6 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 import { useIsDesktop } from '~hooks/useIsDesktop'
-import { isGovSgEmail } from '~shared/decorators/is-gov-sg-email'
 
 const schema = z.object({
   email: z
@@ -18,9 +17,6 @@ const schema = z.object({
     .trim()
     .min(1, 'Please enter an email address.')
     .email({ message: 'Please enter a valid email address.' })
-    .refine(isGovSgEmail, {
-      message: 'Please sign in with a gov.sg email address.',
-    }),
 })
 
 export type LoginFormInputs = {
