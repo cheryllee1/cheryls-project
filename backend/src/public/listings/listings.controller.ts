@@ -1,10 +1,12 @@
 import {
   Body,
   Controller,
+  DefaultValuePipe,
   Get,
   Param,
   ParseIntPipe,
   Post,
+  Query,
 } from '@nestjs/common';
 
 // import { CreateListingReq } from '~shared/types/api';
@@ -25,8 +27,11 @@ export class ListingsController {
   }
 
   @Get()
-  findAll() {
-    return this.listingService.findAll();
+  findAll(
+    @Query('categoryId', new DefaultValuePipe(0), ParseIntPipe)
+    categoryId?: number
+  ) {
+    return this.listingService.findAll(categoryId);
   }
 
   // Can you help me enable global validation pipe so that it will actually validate the DTO, i cant figure out where is the validation pipe set

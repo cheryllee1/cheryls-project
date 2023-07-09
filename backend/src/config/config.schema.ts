@@ -22,25 +22,6 @@ export interface ConfigSchema {
       maxAge: number;
     };
   };
-  otp: {
-    expiry: number;
-    secret: string;
-    numValidPastWindows: number;
-    numValidFutureWindows: number;
-    sender_name: string;
-    email: string;
-  };
-  postmangovsgApiKey: string;
-  mailer: {
-    auth: {
-      type: 'login';
-      user: string;
-      pass: string;
-    };
-    host: string;
-    port: number;
-  };
-  health: { heapSizeThreshold: number; rssThreshold: number };
 }
 
 addFormats({
@@ -58,7 +39,7 @@ export const schema: Schema<ConfigSchema> = {
     doc: 'The port that the service listens on',
     env: 'PORT',
     format: 'int',
-    default: 8080,
+    default: 3000,
   },
   environment: {
     doc: 'The environment that Node.js is running in',
@@ -138,103 +119,6 @@ export const schema: Schema<ConfigSchema> = {
         format: 'int',
         default: 24 * 60 * 60 * 1000, // 24 hours
       },
-    },
-  },
-  otp: {
-    expiry: {
-      doc: 'The number of seconds that an OTP is valid for a user',
-      env: 'OTP_EXPIRY',
-      format: 'int',
-      default: 300,
-    },
-    secret: {
-      doc: 'A secret string used to generate TOTPs for users',
-      env: 'OTP_SECRET',
-      format: '*',
-      default: 'toomanysecrets',
-    },
-    numValidPastWindows: {
-      doc: 'The number of past windows for which tokens should be considered valid, where a window is the duration that an OTP is valid for, e.g. OTP expiry time.',
-      env: 'OTP_NUM_VALID_PAST_WINDOWS',
-      format: 'int',
-      default: 1,
-    },
-    numValidFutureWindows: {
-      doc: 'The number of future windows for which tokens should be considered valid, where a window is the duration that an OTP is valid for, e.g. OTP expiry time.',
-      env: 'OTP_NUM_VALID_FUTURE_WINDOWS',
-      format: 'int',
-      default: 0,
-    },
-    sender_name: {
-      doc: 'Name of email sender',
-      env: 'OTP_SENDER_NAME',
-      format: String,
-      default: 'Starter Kit',
-    },
-    email: {
-      doc: 'Email to send OTP emails from. If POSTMANGOVSG_API_KEY is set, ensure that this email is set to `donotreply@mail.postman.gov.sg`',
-      env: 'OTP_EMAIL',
-      format: String,
-      default: 'donotreply@mail.postman.gov.sg',
-    },
-  },
-  postmangovsgApiKey: {
-    doc: 'The API key used to send emails via Postman',
-    env: 'POSTMANGOVSG_API_KEY',
-    format: String,
-    default: '',
-  },
-  mailer: {
-    doc:
-      'Mailer configuration for SMTP mail services. ' +
-      'If POSTMANGOVSG_API_KEY is present, this configuration is ignored and ' +
-      'the mailer will use Postman instead.',
-    auth: {
-      type: {
-        doc: 'The type of authentication used. Currently, only "login" is supported',
-        format: ['login'],
-        default: 'login',
-      },
-      user: {
-        doc: 'The user to present to the SMTP service',
-        env: 'MAILER_USER',
-        format: String,
-        default: 'mailer-user',
-      },
-      pass: {
-        doc: 'The password to present to the SMTP service',
-        env: 'MAILER_PASSWORD',
-        format: String,
-        default: 'mailer-password',
-      },
-    },
-    host: {
-      doc: 'The server hosting the SMTP service',
-      env: 'MAILER_HOST',
-      format: String,
-      default: 'localhost',
-    },
-    port: {
-      doc: 'The port for the SMTP service',
-      env: 'MAILER_PORT',
-      format: 'port',
-      default: 1025,
-    },
-  },
-  health: {
-    heapSizeThreshold: {
-      doc: 'Heap size threshold before healthcheck fails (in bytes).',
-      env: 'HEAP_SIZE_THRESHOLD',
-      format: 'int',
-      // TODO: Set to a more reasonable value depending on the instance size used.
-      default: 200 * 1024 * 1024, // 200MB
-    },
-    rssThreshold: {
-      doc: 'Resident set size threshold before healthcheck fails (in bytes).',
-      env: 'RSS_THRESHOLD',
-      format: 'int',
-      // TODO: Set to a more reasonable value depending on the instance size used.
-      default: 3000 * 1024 * 1024, // 3000MB
     },
   },
 };

@@ -65,6 +65,7 @@ typings/
 build
 backend/build
 frontend/build
+*.tsbuildinfo
 
 # JetBrains IDEs' settings
 .idea

@@ -7,6 +7,8 @@ import { ConfigService } from './config/config.service';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+    // This is needed because the frontend runs on a different port
+    cors: true,
     bufferLogs: true,
   });
   app.useLogger(app.get(Logger));

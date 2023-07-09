@@ -13,12 +13,16 @@ export class ListingsService {
     private listingsRepository: Repository<Listing>
   ) {}
 
-  findAll(): Promise<Listing[]> {
-    return this.listingsRepository.find({
-      order: {
-        id: 'DESC',
-      },
-    });
+  findAll(categoryId?: number): Promise<Listing[]> {
+    if (categoryId === 0)
+      return this.listingsRepository.find({
+        order: { id: 'DESC' },
+      });
+    else
+      return this.listingsRepository.find({
+        where: { categoryId },
+        order: { id: 'DESC' },
+      });
   }
 
   find(listingId: number): Promise<Listing | null> {
