@@ -11,8 +11,13 @@ import { categories } from './categories';
 <template>
   <div class="w-screen">
     <div class="mb-20 h-64 w-screen bg-cyan-700 text-center">
-      <p class="mb-5 pt-12 font-serif text-8xl">TradeMate</p>
-      <p class="font-serif text-4xl">A Barter Way of Life</p>
+      <img
+        class="inline-block flex flex-row"
+        src="../../assets/Logo.png"
+        alt=""
+      />
+      <p class="-mt-32 pt-12 font-serif text-8xl">TradeMate</p>
+      <p class="mt-4 font-serif text-4xl">A Barter Way of Life</p>
     </div>
 
     <div
@@ -35,7 +40,7 @@ import { categories } from './categories';
         :key="category.id"
       >
         <img
-          src="https://bookstr.com/wp-content/uploads/2018/09/booki.jpg"
+          src="../../assets/books.png"
           class="aspect-square w-72 object-cover"
         />
 

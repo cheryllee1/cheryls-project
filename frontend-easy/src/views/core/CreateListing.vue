@@ -169,7 +169,7 @@ async function listItem() {
       />
 
       <button
-        class="w-full rounded bg-cyan-700 p-2.5 text-white"
+        class="mb-12 w-full rounded bg-cyan-700 p-2.5 text-white"
         @click="listItem"
       >
         List now!

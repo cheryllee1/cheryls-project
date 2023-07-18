@@ -52,7 +52,7 @@ const listings = res.data;
         </p>
 
         <img
-          src="https://bookstr.com/wp-content/uploads/2018/09/booki.jpg"
+          src="../../assets/books.png"
           class="aspect-square w-72 object-cover"
         />
 

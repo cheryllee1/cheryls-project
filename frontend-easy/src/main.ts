@@ -6,6 +6,11 @@ import { createPinia } from 'pinia';
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
 import { router } from './router';
 import App from './App.vue';
+import VueGtag from 'vue-gtag';
+
+Vue.use(VueGtag, {
+  config: { id: 'G-Q3G07BKKZ5' },
+});
 
 createApp(App)
   .use(router)
