@@ -5,13 +5,8 @@ on:
     types: [opened, reopened]
 
 jobs:
-  build:
-    name: Build, Test, Lint
-    uses: ./.github/workflows/build.yml
-
   deploy-staging:
     name: Deploy to Staging
-    needs: [build]
     if: github.ref_name == 'staging'
     uses: opengovsg/deploy/.github/workflows/deploy.yml@latest
     secrets:
@@ -33,7 +28,6 @@ jobs:
 
   deploy-production:
     name: Deploy to Production
-    needs: [build]
     if: github.ref_name == 'production'
     uses: opengovsg/deploy/.github/workflows/deploy.yml@latest
     secrets:
