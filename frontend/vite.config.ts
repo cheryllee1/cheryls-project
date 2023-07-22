@@ -11,6 +11,11 @@ export default defineConfig({
       '~shared': path.resolve(__dirname, '../shared/build'),
     },
   },
+  build: {
+    outDir: 'build',
+    target: 'chrome80',
+    sourcemap: true,
+  },
   server: {
     open: 'http://localhost:3000',
     port: 3000,

@@ -16,7 +16,7 @@ import { LoggerModule, PinoLogger } from 'nestjs-pino'
 import { join } from 'path'
 import { TraceIdProvider } from 'tracing/trace-id.provider'
 
-const FRONTEND_PATH = join(__dirname, '..', '..', 'frontend', 'dist')
+const FRONTEND_PATH = join(__dirname, '..', '..', 'frontend', 'build')
 
 @Module({
   imports: [
