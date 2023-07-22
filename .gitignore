@@ -70,3 +70,5 @@ frontend/build
 .idea
 
 **/*.tsbuildinfo
+
+dist
