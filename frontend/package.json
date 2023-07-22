@@ -9,7 +9,7 @@
     "preview": "npx vite preview --port 8080",
     "typecheck": "npx vue-tsc --noEmit",
     "build": "npx vite build",
-    "build:delete": "npx rimraf ./dist",
+    "build:delete": "npx rimraf ./build",
     "build:full": "npm run typecheck && npm run build:delete && npm run build",
     "deploy": "npm run build:full",
     "pre-commit": "lint-staged",

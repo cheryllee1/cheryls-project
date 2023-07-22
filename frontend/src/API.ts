@@ -22,7 +22,7 @@ const baseApiUrl =
 
 // Configure API library base Urls
 sf.addBase(API.vNeutral, baseApiUrl)
-  .addBase(API.v1, `${baseApiUrl}/api/v1`)
+  .addBase(API.v1, `api/v1`)
 
   // Defaults to v1
   .setDefault(API.v1);
