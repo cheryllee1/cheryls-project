@@ -1,7 +1,6 @@
 import { Navigate, NavigateProps, useLocation } from 'react-router-dom'
 
 import { routes } from '~constants/routes'
-import { useAuth } from '~lib/auth'
 
 interface PrivateElementProps {
   /**
@@ -17,12 +16,6 @@ export const PrivateElement = ({
   redirectTo = routes.login,
 }: PrivateElementProps): React.ReactElement => {
   const location = useLocation()
-
-  const { isAuthenticated } = useAuth()
-
-  if (isAuthenticated) {
-    return element
-  }
 
   return <Navigate replace to={redirectTo} state={{ from: location }} />
 }

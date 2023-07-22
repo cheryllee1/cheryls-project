@@ -5,7 +5,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { routes } from '~constants/routes'
 import { lazyImport } from '~utils/lazyImport'
 
-const { AuthRoutes } = lazyImport(() => import('~features/auth'), 'AuthRoutes')
 const { DashboardRoutes } = lazyImport(
   () => import('~features/dashboard'),
   'DashboardRoutes',
@@ -19,10 +18,6 @@ const router = createBrowserRouter([
   {
     path: routes.index,
     element: <DashboardRoutes />,
-  },
-  {
-    path: routes.login,
-    element: <AuthRoutes />,
   },
   {
     path: routes.health,

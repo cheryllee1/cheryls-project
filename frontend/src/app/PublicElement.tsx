@@ -3,7 +3,6 @@ import { RestrictedGovtMasthead } from '@opengovsg/design-system-react'
 import { Navigate, useLocation } from 'react-router-dom'
 
 import { routes } from '~constants/routes'
-import { useAuth } from '~lib/auth'
 
 interface PublicElementProps {
   /**
@@ -24,12 +23,6 @@ export const PublicElement = ({
 }: PublicElementProps): React.ReactElement => {
   const location = useLocation()
   const state = location.state as { from: Location } | undefined
-
-  const { isAuthenticated } = useAuth()
-
-  if (isAuthenticated && strict) {
-    return <Navigate to={state?.from.pathname ?? routes.index} replace />
-  }
 
   return (
     <Flex flexDir="column" minH="$100vh">

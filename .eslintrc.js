@@ -10,6 +10,9 @@ module.exports = {
     {
       files: ['frontend/**/*.ts', '*.tsx'],
       extends: ['opengovsg', 'opengovsg/react'],
+      rules: {
+        '@typescript-eslint/no-empty-function': 'off',
+      },
     },
     {
       files: ['frontend/**/*.js', '*.jsx'],

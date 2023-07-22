@@ -12,7 +12,6 @@ import { LoggedValidationPipe } from 'core/providers/logged-validation.pipe'
 import { DatabaseConfigService } from 'database/database-config.service'
 import { Response } from 'express'
 import { HelmetMiddleware } from 'middlewares/helmet.middleware'
-import { SessionMiddleware } from 'middlewares/session.middleware'
 import { LoggerModule, PinoLogger } from 'nestjs-pino'
 import { join } from 'path'
 import { TraceIdProvider } from 'tracing/trace-id.provider'
@@ -79,6 +78,6 @@ const FRONTEND_PATH = join(__dirname, '..', '..', 'frontend', 'build')
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer): void {
-    consumer.apply(HelmetMiddleware, SessionMiddleware).forRoutes('*')
+    consumer.apply(HelmetMiddleware).forRoutes('*')
   }
 }
