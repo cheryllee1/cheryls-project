@@ -1,10 +1,9 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
+import { Listing } from 'database/entities'
 import { Repository } from 'typeorm'
 
 import type { CreateListingReq } from '~shared/types/api'
-
-import { Listing } from '../../database/entities'
 
 @Injectable()
 export class ListingsService {

@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm'
 
-import { Condition } from '~shared/types/base/listings.base'
+import { Condition } from '~shared/types/base'
 
 @Entity({ name: 'listing' })
 export class Listing extends BaseEntity {
