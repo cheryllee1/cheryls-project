@@ -55,14 +55,12 @@ export class ListingsController {
   }
 
   @Post("file")
+  @UseInterceptors(FileInterceptor('file'))
   uploadFileAndPassValidation(
     @UploadedFile(
       new ParseFilePipeBuilder()
-        .addFileTypeValidator({
-          fileType: "jpeg",
-        })
         .addMaxSizeValidator({
-          maxSize: 1000,
+          maxSize: 100000,
         })
         .build({
           errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY,
