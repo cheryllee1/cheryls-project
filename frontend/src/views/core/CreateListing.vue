@@ -5,7 +5,7 @@ import { sf } from "simpler-fetch";
 import { HomeRoute } from "../../router";
 import { categories } from "./categories";
 import { Condition, CreateListingReq } from "~shared/types";
-import { axios } from "axios";
+// import { axios } from "axios";
 
 const router = useRouter();
 
@@ -52,23 +52,26 @@ async function listItem() {
   router.push({ name: HomeRoute.name });
 }
 
-async function handleFileUpload(event) {
-  this.file = event.target.files[0];
-  let formData = new FormData();
-  formData.append("file", this.file);
-  axios
-    .post("/single-file", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    })
-    .then(function () {
-      console.log("SUCCESS!!");
-    })
-    .catch(function () {
-      console.log("FAILURE!!");
-    });
+async function handleFileUpload() {
+  return;
 }
+// async function handleFileUpload(event) {
+//   this.file = event.target.files[0];
+//   let formData = new FormData();
+//   formData.append("file", this.file);
+//   axios
+//     .post("/single-file", formData, {
+//       headers: {
+//         "Content-Type": "multipart/form-data",
+//       },
+//     })
+//     .then(function () {
+//       console.log("SUCCESS!!");
+//     })
+//     .catch(function () {
+//       console.log("FAILURE!!");
+//     });
+// }
 </script>
 
 <template>
@@ -137,7 +140,7 @@ async function handleFileUpload(event) {
         class="block w-full cursor-pointer rounded-lg border border-gray-300 bg-gray-50 text-sm text-gray-900 focus:outline-none"
         id="file"
         type="file"
-        v-on:change="handleFileUpload()"
+        v-on:change="handleFileUpload"
       />
 
       <!-- Condition dropdown -->
