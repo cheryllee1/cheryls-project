@@ -1,27 +1,28 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-import { sf } from 'simpler-fetch';
-import { HomeRoute } from '../../router';
-import { categories } from './categories';
-import { Condition, CreateListingReq } from '~shared/types';
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+import { sf } from "simpler-fetch";
+import { HomeRoute } from "../../router";
+import { categories } from "./categories";
+import { Condition, CreateListingReq } from "~shared/types";
+import { axios } from "axios";
 
 const router = useRouter();
 
-const listingTitle = ref('');
-const itemDescription = ref('');
-const wishlistDescription = ref('');
+const listingTitle = ref("");
+const itemDescription = ref("");
+const wishlistDescription = ref("");
 // const itemPhoto = ref('');
-const yourName = ref('');
-const yourEmail = ref('');
+const yourName = ref("");
+const yourEmail = ref("");
 
 const selectedCategory = ref<string | undefined>(undefined);
 
 const listofcondition = [
-  'Brand New',
-  'Like New',
-  'Slightly Used',
-  'Well Used',
+  "Brand New",
+  "Like New",
+  "Slightly Used",
+  "Well Used",
 ] as const;
 
 const selectedCondition = ref<(typeof listofcondition)[number] | undefined>(
@@ -31,12 +32,12 @@ const selectedCondition = ref<(typeof listofcondition)[number] | undefined>(
 async function listItem() {
   const { res, err } = await sf
     .useDefault()
-    .POST('/listing/new/create')
+    .POST("/listing/new/create")
     .bodyJSON<CreateListingReq>({
       username: yourName.value,
       email: yourEmail.value,
-      categoryId: parseInt(selectedCategory.value ?? '1'),
-      condition: selectedCondition.value?.replace(' ', '') as Condition,
+      categoryId: parseInt(selectedCategory.value ?? "1"),
+      condition: selectedCondition.value?.replace(" ", "") as Condition,
       title: listingTitle.value,
       description: itemDescription.value,
       wishlistDescription: wishlistDescription.value,
@@ -44,11 +45,29 @@ async function listItem() {
     .run();
 
   if (err) throw err;
-  if (!res.ok) throw new Error('submission failed');
+  if (!res.ok) throw new Error("submission failed");
 
-  alert('Success!');
+  alert("Success!");
 
   router.push({ name: HomeRoute.name });
+}
+
+async function handleFileUpload(event) {
+  this.file = event.target.files[0];
+  let formData = new FormData();
+  formData.append("file", this.file);
+  axios
+    .post("/single-file", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+    .then(function () {
+      console.log("SUCCESS!!");
+    })
+    .catch(function () {
+      console.log("FAILURE!!");
+    });
 }
 </script>
 
@@ -116,8 +135,9 @@ async function listItem() {
       </label>
       <input
         class="block w-full cursor-pointer rounded-lg border border-gray-300 bg-gray-50 text-sm text-gray-900 focus:outline-none"
-        id="file_input"
+        id="file"
         type="file"
+        v-on:change="handleFileUpload()"
       />
 
       <!-- Condition dropdown -->

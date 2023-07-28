@@ -1,27 +1,27 @@
-import { Injectable } from '@nestjs/common'
-import { InjectRepository } from '@nestjs/typeorm'
-import { Listing } from 'database/entities'
-import { Repository } from 'typeorm'
+import { Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Listing } from "database/entities";
+import { Repository } from "typeorm";
 
-import type { CreateListingReq } from '~shared/types/api'
+import type { CreateListingReq } from "~shared/types/api";
 
 @Injectable()
 export class ListingsService {
   constructor(
     @InjectRepository(Listing)
-    private listingsRepository: Repository<Listing>,
+    private listingsRepository: Repository<Listing>
   ) {}
 
   findAll(categoryId?: number): Promise<Listing[]> {
     if (categoryId === 0)
       return this.listingsRepository.find({
-        order: { id: 'DESC' },
-      })
+        order: { id: "DESC" },
+      });
     else
       return this.listingsRepository.find({
         where: { categoryId },
-        order: { id: 'DESC' },
-      })
+        order: { id: "DESC" },
+      });
   }
 
   find(listingId: number): Promise<Listing | null> {
@@ -29,7 +29,7 @@ export class ListingsService {
       where: {
         id: listingId,
       },
-    })
+    });
   }
 
   async createListing(listing: CreateListingReq) {
@@ -41,10 +41,10 @@ export class ListingsService {
       listing_description: listing.description,
       wishlist_description: listing.wishlistDescription,
       condition: listing.condition,
-    })
+    });
   }
 
   async deleteListing(listingId: number) {
-    await this.listingsRepository.delete({ id: listingId })
+    await this.listingsRepository.delete({ id: listingId });
   }
 }

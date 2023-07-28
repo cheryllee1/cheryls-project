@@ -1,8 +1,10 @@
-import { Module } from '@nestjs/common'
-import { TypeOrmModule } from '@nestjs/typeorm'
-import { Listing } from 'database/entities/listings.entity'
+import { Module } from "@nestjs/common";
+import { TypeOrmModule } from "@nestjs/typeorm";
+import { Listing } from "database/entities/listings.entity";
 
-import { ListingsService } from './listings.service'
+import { ListingsService } from "./listings.service";
+import { S3Service } from "S3/S3.service";
+import { S3ServiceModule } from "S3/S3.service.module";
 
 @Module({
   imports: [TypeOrmModule.forFeature([Listing])],

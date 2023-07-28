@@ -1,21 +1,20 @@
-import { Module } from '@nestjs/common'
-import { RouterModule } from '@nestjs/core'
-import { TerminusModule } from '@nestjs/terminus'
+import { Module } from "@nestjs/common";
+import { RouterModule } from "@nestjs/core";
 
-import { HealthModule } from './health/health.module'
-import { ListingsModule } from './public/listings/listings.module'
+import { ListingsModule } from "./public/listings/listings.module";
 
-const apiModules = [TerminusModule, HealthModule, ListingsModule]
+const apiModules = [ListingsModule];
 
 @Module({
   imports: [
     ...apiModules,
+
     RouterModule.register([
       {
-        path: 'api',
+        path: "api",
         children: [
           {
-            path: 'v1',
+            path: "v1",
             children: apiModules,
           },
         ],

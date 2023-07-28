@@ -1,23 +1,19 @@
 <script setup lang="ts">
-import { sf } from 'simpler-fetch';
-import type { Listing } from '~shared/types/api';
-import { HomeRoute, ListingRoute } from '../../router';
-import { mapCondition } from './mapCondition';
+import { sf } from "simpler-fetch";
+import type { Listing } from "~shared/types/api";
+import { HomeRoute, ListingRoute } from "../../router";
+import { mapCondition } from "./mapCondition";
 
 const props = defineProps<{ categoryId?: string }>();
 
 const { res, err } = await sf
   .useDefault()
-  .GET(`/listing?categoryId=${props.categoryId}`)
+  // Default to 0 to ensure backend returns all items regardless of category
+  .GET(`/listing?categoryId=${props.categoryId ?? 0}`)
   .runJSON<Array<Listing>>();
 
 if (err) throw err;
-// if (!res.ok) throw new Error('did not get listings');
-if (!res.ok) {
-  console.log(res);
-
-  throw new Error('did not get listings');
-}
+if (!res.ok) throw new Error("did not get listings");
 
 const listings = res.data;
 </script>

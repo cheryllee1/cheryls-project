@@ -1,47 +1,5 @@
-<script setup lang="ts">
-import { ref, onErrorCaptured } from 'vue';
-import { useRouter } from 'vue-router';
-
-import GlobalErrorView from './views/GlobalError.vue';
-import loader from './views/components/LoaderUI.vue';
-
-const router = useRouter();
-
-const globalError = ref<Error | undefined>(undefined);
-onErrorCaptured((e) => (globalError.value = e as any));
-
-/**
- * Clear the global error flag and navigate to the last working page.
- */
-function clearError() {
-  // Navigate back to the last working page
-  router.back();
-
-  // Clear the global error flag.
-  //
-  // This needs to be wrapped in a setTimeout because the v-if conditional
-  // rendering updates before the `router.back()` can change the router-view's
-  // dynamic component, which means that the router-view component is showed
-  // again with the page that errored before it is navigated away. This causes
-  // the error to be thrown and bubbled up here again, even if the URL has
-  // changed to navigate the user to the last working page, it still shows
-  // the global error view component.
-  //
-  // The 100 milliseconds timeout value is arbitrary, it needs to be long
-  // enough for the router-back update to take effect but not too long that it
-  // seems like the clear error action froze, and 100ms is a good in between.
-  setTimeout(() => (globalError.value = undefined), 100);
-}
-</script>
-
 <template>
-  <GlobalErrorView
-    v-if="globalError"
-    :globalError="globalError"
-    @acknowledged="clearError"
-  />
-
-  <RouterView v-else v-slot="{ Component }">
+  <RouterView v-slot="{ Component }">
     <!--
       A timeout MUST BE specified for the fallback content to be shown by default.
       Arbitrary timeout of 10 milliseconds to account for super quick
@@ -78,7 +36,7 @@ function clearError() {
       </div>
 
       <!-- loading UI -->
-      <template #fallback><loader /></template>
+      <template #fallback>loading...</template>
     </Suspense>
   </RouterView>
 </template>

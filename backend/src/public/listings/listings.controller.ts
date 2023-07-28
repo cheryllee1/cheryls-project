@@ -17,10 +17,14 @@ import {
 // import { CreateListingReq } from '~shared/types/api';
 import { ListingsService } from "./listings.service";
 import { FileInterceptor } from "@nestjs/platform-express";
+import { S3Service } from "S3/S3.service";
 
 @Controller("listing")
 export class ListingsController {
-  constructor(private listingService: ListingsService) {}
+  constructor(
+    private listingService: ListingsService,
+    private s3Service: S3Service
+  ) {}
 
   @Get(":listingId")
   async find(@Param("listingId", ParseIntPipe) listingId: number) {
@@ -34,8 +38,8 @@ export class ListingsController {
 
   @Get()
   findAll(
-    @Query("categoryId", new DefaultValuePipe(0), ParseIntPipe)
-    categoryId?: number
+    @Query("categoryId", ParseIntPipe)
+    categoryId: number
   ) {
     return this.listingService.findAll(categoryId);
   }
@@ -55,7 +59,7 @@ export class ListingsController {
   }
 
   @Post("file")
-  @UseInterceptors(FileInterceptor('file'))
+  @UseInterceptors(FileInterceptor("file"))
   uploadFileAndPassValidation(
     @UploadedFile(
       new ParseFilePipeBuilder()
@@ -68,6 +72,7 @@ export class ListingsController {
     )
     file: Express.Multer.File
   ) {
+    this.s3Service.uploadFile(file);
     return {
       file: file.buffer.toString(),
     };

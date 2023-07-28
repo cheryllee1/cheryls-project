@@ -1,3 +1,5 @@
+/* This is to load tailwind in because we are using tailwind css */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

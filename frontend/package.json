@@ -16,9 +16,8 @@
     "lint:fix": "eslint --fix --ext ts,tsx,js,jsx ."
   },
   "dependencies": {
+    "axios": "^1.4.0",
     "lint-staged": "^13.2.3",
-    "pinia": "^2.0.35",
-    "pinia-plugin-persistedstate": "^3.1.0",
     "simpler-fetch": "^10.0.0",
     "vue": "^3.2.47",
     "vue-analytics": "^5.22.1",
@@ -36,7 +35,6 @@
     "autoprefixer": "^10.4.14",
     "eslint": "^8.40.0",
     "eslint-plugin-vue": "^9.11.1",
-    "firebase": "^9.22.0",
     "postcss": "^8.4.23",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.2.8",
