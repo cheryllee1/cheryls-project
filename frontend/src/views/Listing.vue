@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { sf } from 'simpler-fetch';
-import type { Listing } from '~shared/types/api';
-import { AllListingRoute } from '../../router';
-import { mapCondition } from './mapCondition';
+import { sf } from "simpler-fetch";
+import type { Listing } from "~shared/types/api";
+import { AllListingRoute } from "../router";
+import { mapCondition } from "./mapCondition";
 
 const props = defineProps<{ listingId: string }>();
 
@@ -12,7 +12,7 @@ const { res, err } = await sf
   .runJSON<Listing>();
 
 if (err) throw err;
-if (!res.ok) throw new Error('did not get listings');
+if (!res.ok) throw new Error("did not get listings");
 
 const listing = res.data;
 </script>

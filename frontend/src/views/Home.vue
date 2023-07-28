@@ -1,21 +1,13 @@
 <script setup lang="ts">
-import {
-  AboutUsRoute,
-  CreateListingRoute,
-  AllListingRoute,
-} from '../../router';
+import { AboutUsRoute, CreateListingRoute, AllListingRoute } from "../router";
 
-import { categories } from './categories';
+import { categories } from "./categories";
 </script>
 
 <template>
   <div class="w-screen">
     <div class="mb-20 h-64 w-screen bg-cyan-700 text-center">
-      <img
-        class="inline-block flex flex-row"
-        src="../../assets/Logo.png"
-        alt=""
-      />
+      <img class="inline-block flex flex-row" src="../assets/Logo.png" alt="" />
       <p class="-mt-32 pt-12 font-serif text-8xl">TradeMate</p>
       <p class="mt-4 font-serif text-4xl">A Barter Way of Life</p>
     </div>
@@ -40,7 +32,7 @@ import { categories } from './categories';
         :key="category.id"
       >
         <img
-          src="../../assets/books.png"
+          src="../assets/books.png"
           class="aspect-square w-72 object-cover"
         />
 

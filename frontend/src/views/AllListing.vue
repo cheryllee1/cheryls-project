@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { sf } from "simpler-fetch";
 import type { Listing } from "~shared/types/api";
-import { HomeRoute, ListingRoute } from "../../router";
+import { HomeRoute, ListingRoute } from "../router";
 import { mapCondition } from "./mapCondition";
 
 const props = defineProps<{ categoryId?: string }>();
@@ -48,7 +48,7 @@ const listings = res.data;
         </p>
 
         <img
-          src="../../assets/books.png"
+          src="../assets/books.png"
           class="aspect-square w-72 object-cover"
         />
 

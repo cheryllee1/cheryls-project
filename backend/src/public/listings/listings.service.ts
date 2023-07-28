@@ -43,8 +43,4 @@ export class ListingsService {
       condition: listing.condition,
     });
   }
-
-  async deleteListing(listingId: number) {
-    await this.listingsRepository.delete({ id: listingId });
-  }
 }

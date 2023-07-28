@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { HomeRoute } from '../../router';
+import { HomeRoute } from "../router";
 </script>
 
 <template>
@@ -24,18 +24,17 @@ import { HomeRoute } from '../../router';
       <p class="mb-3">
         She realised how she owns a bunch of things that she no longer has use
         for and would often wish she could trade them for other items. From
-        video games and books still in decent condition, to brand new things like bedsheets she regretted
-        purchasing, she decided to build a webapp that would facilitate
-        smooth exchanges between users.
+        video games and books still in decent condition, to brand new things
+        like bedsheets she regretted purchasing, she decided to build a webapp
+        that would facilitate smooth exchanges between users.
       </p>
       <p class="mb-3">
         She hopes that users can connect with like-minded individuals, forge new
         friendships, and uncover treasures that spark joy in their lives. For
         each item listing you create to put an item up for exchange, you may
-        indicate an item you hope to receive in return, so that
-        those who have it can find you. Go on and start your TradeMate journey!
+        indicate an item you hope to receive in return, so that those who have
+        it can find you. Go on and start your TradeMate journey!
       </p>
-  
     </div>
   </div>
 </template>

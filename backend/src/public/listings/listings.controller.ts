@@ -64,7 +64,8 @@ export class ListingsController {
     @UploadedFile(
       new ParseFilePipeBuilder()
         .addMaxSizeValidator({
-          maxSize: 100000,
+          // 10 MB
+          maxSize: 10000000,
         })
         .build({
           errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY,
@@ -79,13 +80,13 @@ export class ListingsController {
   }
 }
 
-import { PipeTransform, Injectable, ArgumentMetadata } from "@nestjs/common";
+// import { PipeTransform, Injectable, ArgumentMetadata } from "@nestjs/common";
 
-@Injectable()
-export class FileSizeValidationPipe implements PipeTransform {
-  transform(value: any, metadata: ArgumentMetadata) {
-    // "value" is an object containing the file's attributes and metadata
-    const oneKb = 10000;
-    return value.size < oneKb;
-  }
-}
+// @Injectable()
+// export class FileSizeValidationPipe implements PipeTransform {
+//   transform(value: any, metadata: ArgumentMetadata) {
+//     // "value" is an object containing the file's attributes and metadata
+//     const oneKb = 10000;
+//     return value.size < oneKb;
+//   }
+// }

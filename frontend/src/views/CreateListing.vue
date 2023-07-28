@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { sf } from "simpler-fetch";
-import { HomeRoute } from "../../router";
+import { HomeRoute } from "../router";
 import { categories } from "./categories";
 import { Condition, CreateListingReq } from "~shared/types";
 // import { axios } from "axios";
