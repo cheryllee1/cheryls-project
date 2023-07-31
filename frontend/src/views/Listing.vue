@@ -33,9 +33,9 @@ const listing = res.data;
     </div>
 
     <div class="ml-12">
-      <!-- v-if="listing.imageUrl !== undefined" -->
       <img
-        src="https://bookstr.com/wp-content/uploads/2018/09/booki.jpg"
+        v-if="listing.imageUrl !== undefined"
+        :src="listing.imageUrl"
         class="mt-4 aspect-square w-72 object-cover"
       />
 
