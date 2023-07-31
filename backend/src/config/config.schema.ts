@@ -40,6 +40,7 @@ export interface ConfigSchema {
     host: string;
     port: number;
   };
+  health: { heapSizeThreshold: number; rssThreshold: number }
 }
 
 addFormats({
@@ -218,6 +219,22 @@ export const schema: Schema<ConfigSchema> = {
       env: "MAILER_PORT",
       format: "port",
       default: 1025,
+    },
+  },
+  health: {
+    heapSizeThreshold: {
+      doc: 'Heap size threshold before healthcheck fails (in bytes).',
+      env: 'HEAP_SIZE_THRESHOLD',
+      format: 'int',
+      // TODO: Set to a more reasonable value depending on the instance size used.
+      default: 200 * 1024 * 1024, // 200MB
+    },
+    rssThreshold: {
+      doc: 'Resident set size threshold before healthcheck fails (in bytes).',
+      env: 'RSS_THRESHOLD',
+      format: 'int',
+      // TODO: Set to a more reasonable value depending on the instance size used.
+      default: 3000 * 1024 * 1024, // 3000MB
     },
   },
 };
