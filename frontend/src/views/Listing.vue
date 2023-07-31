@@ -33,8 +33,7 @@ const listing = res.data;
     </div>
 
     <div class="ml-12">
-      <p class="mt-8 font-serif text-2xl">Books</p>
-
+      <!-- v-if="listing.imageUrl !== undefined" -->
       <img
         src="https://bookstr.com/wp-content/uploads/2018/09/booki.jpg"
         class="mt-4 aspect-square w-72 object-cover"

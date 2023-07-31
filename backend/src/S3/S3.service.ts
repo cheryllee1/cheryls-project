@@ -1,4 +1,4 @@
-import { Injectable, Req, Res } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import * as AWS from "aws-sdk";
 
 @Injectable()
@@ -9,36 +9,24 @@ export class S3Service {
     secretAccessKey: process.env.AWS_ACCESS_KEY_SECRET,
   });
 
+  // https://docs.aws.amazon.com/AmazonS3/latest/userguide/WebsiteAccessPermissionsReqd.html#bucket-policy-static-site
   async uploadFile(file: Express.Multer.File) {
-    const { originalname } = file;
-
-    await this.s3_upload(
-      file.buffer,
-      this.AWS_BUCKET_NAME || "",
-      originalname,
-      file.mimetype
-    );
-  }
-
-  async s3_upload(file: any, bucket: string, name: any, mimetype: any) {
-    const params = {
-      Bucket: bucket,
-      Key: String(name),
-      Body: file,
-      ACL: "public-read",
-      ContentType: mimetype,
-      ContentDisposition: "inline",
-      CreateBucketConfiguration: {
-        LocationConstraint: "ap-southeast-1",
-      },
-    };
-
-    console.log(params);
-
     try {
-      let s3Response = await this.s3.upload(params).promise();
+      const { originalname } = file;
 
-      console.log(s3Response);
+      const params = {
+        Bucket: this.AWS_BUCKET_NAME || "",
+        Key:
+          Math.trunc(Math.random() * 10000).toString() + String(originalname),
+        Body: file.buffer,
+        ContentType: file.mimetype,
+        ContentDisposition: "inline",
+        CreateBucketConfiguration: { LocationConstraint: "ap-southeast-1" },
+      };
+
+      const s3Response = await this.s3.upload(params).promise();
+
+      return s3Response.Location;
     } catch (e) {
       console.log(e);
     }

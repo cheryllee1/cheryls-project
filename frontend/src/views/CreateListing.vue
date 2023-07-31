@@ -2,19 +2,18 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { sf } from "simpler-fetch";
-import { HomeRoute } from "../router";
+import { HomeRoute, ListingRoute } from "../router";
 import { categories } from "./categories";
 import { Condition, CreateListingReq } from "~shared/types";
-// import { axios } from "axios";
 
 const router = useRouter();
 
 const listingTitle = ref("");
 const itemDescription = ref("");
 const wishlistDescription = ref("");
-// const itemPhoto = ref('');
 const yourName = ref("");
 const yourEmail = ref("");
+const imageUrl = ref("");
 
 const selectedCategory = ref<string | undefined>(undefined);
 
@@ -30,6 +29,21 @@ const selectedCondition = ref<(typeof listofcondition)[number] | undefined>(
 );
 
 async function listItem() {
+  // Validate inputs first before calling API
+  if (yourName.value === "") return alert("Name cannot be empty");
+  if (yourEmail.value === "") return alert("Email cannot be empty");
+  if (listingTitle.value === "") return alert("Listing Title cannot be empty");
+  if (itemDescription.value === "")
+    return alert("Item Description cannot be empty");
+  if (wishlistDescription.value === "")
+    return alert("Wishlist Description cannot be empty");
+  if (selectedCategory.value === undefined)
+    return alert("Please select the category of the item");
+  if (selectedCondition.value === undefined)
+    return alert("Please select the condition of the item");
+
+  // Send create listing DTO value to API server in this API call
+  // Expects a listingID of the newly created listing back.
   const { res, err } = await sf
     .useDefault()
     .POST("/listing/new/create")
@@ -41,37 +55,47 @@ async function listItem() {
       title: listingTitle.value,
       description: itemDescription.value,
       wishlistDescription: wishlistDescription.value,
+      imageUrl: imageUrl.value,
     })
-    .run();
+    .runJSON<{ listingID: number }>();
 
   if (err) throw err;
   if (!res.ok) throw new Error("submission failed");
 
   alert("Success!");
 
-  router.push({ name: HomeRoute.name });
+  // Go to the newly listed item's Listing page.
+  router.push({
+    name: ListingRoute.name,
+    params: { listingId: res.data.listingID },
+  });
 }
 
-async function handleFileUpload() {
-  return;
+// This is the event handler function for new file uploaded to browser.
+async function handleFileUpload(event: any) {
+  // Get the file uploaded into the browser, and convert it to multipart/form-data for upload
+  const file = event.target.files[0];
+  let formData = new FormData();
+  formData.append("file", file);
+
+  // Upload form data with file inside it to our API server so that it can upload to s3
+  // This will return a link to the image hosted on s3 if it succeeds.
+  const { res, err } = await sf
+    .useDefault()
+    .POST("/listing/file")
+    .body(formData)
+    .runText();
+
+  if (err) throw err;
+  if (!res.ok) throw new Error("Failed to upload image");
+
+  // Save the returned image s3 link into the imageUrl variable,
+  // so that we can use it later when submitting it to the Create Listing API,
+  // which will save the imageUrl alongside other listing details into the DB.
+  imageUrl.value = res.data;
+
+  alert("Image uploaded!");
 }
-// async function handleFileUpload(event) {
-//   this.file = event.target.files[0];
-//   let formData = new FormData();
-//   formData.append("file", this.file);
-//   axios
-//     .post("/single-file", formData, {
-//       headers: {
-//         "Content-Type": "multipart/form-data",
-//       },
-//     })
-//     .then(function () {
-//       console.log("SUCCESS!!");
-//     })
-//     .catch(function () {
-//       console.log("FAILURE!!");
-//     });
-// }
 </script>
 
 <template>
@@ -170,7 +194,7 @@ async function handleFileUpload() {
         v-model="wishlistDescription"
         type="text"
         class="my-4 mb-8 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900"
-        placeholder="State the item you wish to receive in return"
+        placeholder="State the items you wish to receive in return"
       />
 
       <p class="mb-2 block text-sm font-medium text-gray-900">

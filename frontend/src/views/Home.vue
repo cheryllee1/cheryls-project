@@ -2,6 +2,10 @@
 import { AboutUsRoute, CreateListingRoute, AllListingRoute } from "../router";
 
 import { categories } from "./categories";
+
+// Utility function to get the URL of a image after file name mangling using the vite method.
+const getImageUrl = (imageID: string) =>
+  new URL(`../assets/${imageID}.png`, import.meta.url).href;
 </script>
 
 <template>
@@ -32,7 +36,7 @@ import { categories } from "./categories";
         :key="category.id"
       >
         <img
-          src="../assets/books.png"
+          :src="getImageUrl(category.id)"
           class="aspect-square w-72 object-cover"
         />
 

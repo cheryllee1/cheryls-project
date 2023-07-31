@@ -1,3 +1,4 @@
+// Helps integrate FE and BE and on ALS
 import { Injectable, NestMiddleware } from '@nestjs/common'
 import { ConfigService } from 'config/config.service'
 import { NextFunction, Request, RequestHandler, Response } from 'express'

@@ -31,6 +31,9 @@ export class Listing extends BaseEntity {
   @Column('varchar')
   wishlist_description: string
 
+  @Column('varchar')
+  image_url: string
+
   @Column({ type: 'enum', enum: Condition, default: Condition.BrandNew })
   condition: Condition
 

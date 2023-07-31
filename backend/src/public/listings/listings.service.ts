@@ -33,7 +33,7 @@ export class ListingsService {
   }
 
   async createListing(listing: CreateListingReq) {
-    await this.listingsRepository.save({
+    const newlyCreatedListing = await this.listingsRepository.save({
       username: listing.username,
       email: listing.email,
       categoryId: listing.categoryId,
@@ -41,6 +41,9 @@ export class ListingsService {
       listing_description: listing.description,
       wishlist_description: listing.wishlistDescription,
       condition: listing.condition,
+      image_url: listing.imageUrl,
     });
+
+    return { listingID: newlyCreatedListing.id };
   }
 }
