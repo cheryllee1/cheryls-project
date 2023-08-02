@@ -59,6 +59,18 @@
         {
           "name": "DD_TAGS",
           "valueFrom": "tm-app-<ENV>-dd-tags"
+        },
+        {
+          "name": "AWS_BUCKET_NAME",
+          "valueFrom": "tm-app-<ENV>-aws-bucket-name"
+        },
+        {
+          "name": "AWS_ACCESS_KEY_ID",
+          "valueFrom": "tm-app-<ENV>-access-key-id"
+        },
+        {
+          "name": "AWS_ACCESS_KEY_SECRET",
+          "valueFrom": "tm-app-<ENV>-access-key-secret"
         }
       ],
       "logConfiguration": {
