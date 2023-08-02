@@ -47,7 +47,7 @@ const listings = res.data;
           {{ new Date(listing.createdAt).toLocaleDateString() }}
         </p>
 
-        <img :src="listing.imageUrl" class="aspect-square w-72 object-cover" />
+        <img :src="listing.image_url" class="aspect-square w-72 object-cover" />
 
         {{ listing.title }}
 

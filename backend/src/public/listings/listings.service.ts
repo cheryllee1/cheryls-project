@@ -41,7 +41,7 @@ export class ListingsService {
       listing_description: listing.description,
       wishlist_description: listing.wishlistDescription,
       condition: listing.condition,
-      image_url: listing.imageUrl,
+      image_url: listing.image_url,
     });
 
     return { listingID: newlyCreatedListing.id };

@@ -6,7 +6,7 @@ export class CreateListingReq {
   categoryId: number;
   title: string;
   description: string;
-  imageUrl: string;
+  image_url: string;
   condition: Condition;
   wishlistDescription: string;
 }
@@ -17,7 +17,7 @@ export interface Listing {
   email: string;
   categoryId: number;
   title: string;
-  imageUrl: string;
+  image_url: string;
   listing_description: string;
   wishlist_description: string;
   condition: Condition;

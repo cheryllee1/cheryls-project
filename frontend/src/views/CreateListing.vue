@@ -13,7 +13,7 @@ const itemDescription = ref("");
 const wishlistDescription = ref("");
 const yourName = ref("");
 const yourEmail = ref("");
-const imageUrl = ref("");
+const image_url = ref("");
 
 const selectedCategory = ref<string | undefined>(undefined);
 
@@ -55,7 +55,7 @@ async function listItem() {
       title: listingTitle.value,
       description: itemDescription.value,
       wishlistDescription: wishlistDescription.value,
-      imageUrl: imageUrl.value,
+      image_url: image_url.value,
     })
     .runJSON<{ listingID: number }>();
 
@@ -92,7 +92,7 @@ async function handleFileUpload(event: any) {
   // Save the returned image s3 link into the imageUrl variable,
   // so that we can use it later when submitting it to the Create Listing API,
   // which will save the imageUrl alongside other listing details into the DB.
-  imageUrl.value = res.data;
+  image_url.value = res.data;
 
   alert("Image uploaded!");
 }

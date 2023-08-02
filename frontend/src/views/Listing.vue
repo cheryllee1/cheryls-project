@@ -34,8 +34,8 @@ const listing = res.data;
 
     <div class="ml-12">
       <img
-        v-if="listing.imageUrl !== undefined"
-        :src="listing.imageUrl"
+        v-if="listing.image_url !== undefined"
+        :src="listing.image_url"
         class="mt-4 aspect-square w-72 object-cover"
       />
 
