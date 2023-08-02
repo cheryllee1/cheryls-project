@@ -5,7 +5,7 @@ import { categories } from "./categories";
 
 // Utility function to get the URL of a image after file name mangling using the vite method.
 const getImageUrl = (imageID: string) =>
-  new URL(`../assets/${imageID}.png`, import.meta.url).href;
+  new URL(`../assets/${imageID}.jpg`, import.meta.url).href;
 </script>
 
 <template>
